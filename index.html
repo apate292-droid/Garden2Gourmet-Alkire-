@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garden 2 Gourmet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--leaf:#1f5f3a;--leaf-d:#154329;--mint:#eaf3e2;--paper:#f8fbf5;--ink:#17261d;--muted:#50655a;--seed:#f2c641;--line:#d3e3c9;--r:14px}
+*{box-sizing:border-box}
+body{margin:0;font:400 1.05rem/1.6 "Nunito",system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+h1,h2,h3,.brand{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.1;margin:0}
+a{color:var(--leaf)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.25rem}
+:focus-visible{outline:3px solid var(--leaf);outline-offset:2px}
+/* top bar */
+.top{background:#fff;border-bottom:2px solid var(--line)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.5rem;padding-top:.8rem;padding-bottom:.8rem}
+.brand{font-weight:800;font-size:1.5rem;color:var(--leaf);text-decoration:none;margin-right:auto}
+nav{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem 1.25rem}
+nav a.nl{color:var(--ink);font-weight:700;text-decoration:none;padding:.25rem 0;border-bottom:3px solid transparent}
+nav a.nl[aria-current="page"]{border-color:var(--leaf)}
+.btn{display:inline-block;font:700 1rem "Nunito",sans-serif;background:var(--seed);color:var(--ink);padding:.6rem 1.2rem;border-radius:999px;text-decoration:none;border:2px solid var(--seed);cursor:pointer}
+.btn:hover{background:#ffd95e;border-color:#ffd95e}
+.btn.alt{background:#fff;border-color:var(--line)}
+.btn.alt:hover{border-color:var(--leaf)}
+/* hero */
+.hero{background:var(--leaf);color:#fff;padding:3rem 0 4.2rem;position:relative}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='18'%3E%3Cpath d='M0 18V12L6 2l6 10 6-10 6 10 6-10 6 10 6-10 6 10v6z' fill='%23f8fbf5'/%3E%3C/svg%3E") repeat-x bottom}
+.hero h1{font-size:clamp(2.4rem,7vw,4.2rem);font-weight:800;letter-spacing:-.02em}
+.hero p{margin:.75rem 0 1.5rem;font-size:1.15rem;color:#e3f0dc;max-width:42ch}
+.search{width:100%;max-width:520px;font:600 1.05rem "Nunito",sans-serif;padding:.85rem 1.2rem;border:0;border-radius:999px;color:var(--ink)}
+/* list */
+.count{color:var(--muted);font-weight:600;margin:1.5rem 0 1rem}
+.grid{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));padding-bottom:3rem}
+.card{display:flex;flex-direction:column;background:#fff;border:2px solid var(--line);border-radius:var(--r);overflow:hidden;color:inherit;text-decoration:none}
+.card:hover{border-color:var(--leaf)}
+.tag{background:var(--mint);color:var(--leaf-d);font-weight:700;font-size:.9rem;padding:.4rem 1rem;border-bottom:2px solid var(--line)}
+.card .b{padding:1rem 1rem 1.2rem}
+.card h2{font-size:1.45rem;margin-bottom:.2rem}
+.by{color:var(--muted);font-weight:600;margin:0 0 .6rem}
+.snip{margin:0;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+/* detail */
+.page{padding:1.5rem 0 3rem}
+.back{display:inline-block;margin-bottom:1rem;font-weight:700}
+.page h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:800}
+.story{border-left:5px solid var(--seed);margin:1.25rem 0;padding:.25rem 0 .25rem 1rem;color:var(--muted);font-style:italic;max-width:60ch}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin:1rem 0 1.5rem}
+.msg{color:var(--muted);font-weight:600}
+.cols{display:grid;gap:1.5rem;grid-template-columns:1fr}
+@media(min-width:760px){.cols{grid-template-columns:300px 1fr}}
+.panel{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:1.25rem}
+.panel h2{font-size:1.4rem;margin-bottom:.75rem}
+ul.ing{list-style:none;margin:0;padding:0}
+ul.ing li{padding:.3rem 0}
+ul.ing label{display:flex;gap:.6rem;cursor:pointer}
+ul.ing input{width:1.2rem;height:1.2rem;margin-top:.3rem;accent-color:var(--leaf);flex:none}
+ul.ing input:checked+span{text-decoration:line-through;color:var(--muted)}
+ol.steps{list-style:none;counter-reset:s;margin:0;padding:0}
+ol.steps li{counter-increment:s;display:flex;gap:.8rem;padding:.5rem 0}
+ol.steps li::before{content:counter(s);flex:none;width:2rem;height:2rem;border-radius:50%;background:var(--leaf);color:#fff;font-weight:700;display:grid;place-items:center}
+.more{margin-top:2.5rem}
+.more h2{margin-bottom:1rem;font-size:1.5rem}
+.more .grid{padding-bottom:0}
+/* states, footer */
+.state{text-align:center;padding:3rem 1rem 4rem;color:var(--muted)}
+.state h2{color:var(--ink);font-size:1.6rem;margin-bottom:.5rem}
+.state .btn{margin-top:1rem}
+.about{max-width:62ch}
+.about h1{font-size:2.4rem;margin-bottom:1rem}
+.about ol{padding-left:1.25rem}
+footer{background:var(--mint);padding:1.25rem 0;color:var(--muted);font-size:.95rem}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#/">Garden 2 Gourmet</a>
+  <nav aria-label="Main">
+    <a class="nl" href="#/">Recipes</a>
+    <a class="nl" href="#/saved">Saved</a>
+    <a class="nl" href="#/about">About</a>
+    <a class="btn" id="add" href="#" target="_blank" rel="noopener">Add your recipe</a>
+  </nav>
+</div></header>
+<main id="view"></main>
+<footer><div class="wrap">Made by 8th graders at Governor Village STEM Academy with Computing Leaders.</div></footer>
+
+<script>
+/* STEP 1: paste your two links (see the setup guide) */
+const SHEET_CSV_URL = "PASTE_PUBLISHED_SHEET_CSV_LINK_HERE";
+const FORM_URL      = "PASTE_GOOGLE_FORM_LINK_HERE";
+
+const KEYS = {
+  ingredients:["ingredient"], directions:["direction","instruction","step","how to"],
+  story:["story","family","why","memory"], origin:["come from","origin","where"],
+  name:["recipe name","name of recipe","dish","title","recipe"],
+  author:["your name","first name","author","submitted by","name"], approved:["approved"]
+};
+let recipes = [], status = "loading";
+const $ = id => document.getElementById(id);
+const el = (t,c,x) => { const e=document.createElement(t); if(c)e.className=c; if(x!==undefined)e.textContent=x; return e; }; // textContent keeps student text from running as code
+$("add").href = FORM_URL.startsWith("http") ? FORM_URL : "#";
+
+/* ---------- data ---------- */
+function parseCSV(t){const rows=[];let r=[],c="",q=false;for(let i=0;i<t.length;i++){const ch=t[i];
+  if(q){if(ch==='"'&&t[i+1]==='"'){c+='"';i++}else if(ch==='"')q=false;else c+=ch}
+  else if(ch==='"')q=true;else if(ch===","){r.push(c);c=""}
+  else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&t[i+1]==="\n")i++;r.push(c);rows.push(r);r=[];c=""}else c+=ch}
+  if(c.length||r.length){r.push(c);rows.push(r)}return rows.filter(r=>r.some(v=>v.trim()))}
+function mapCols(h){const used=new Set(),m={};
+  for(const f of ["approved","ingredients","directions","story","origin","name","author"])
+    for(const k of KEYS[f]){const i=h.findIndex((x,j)=>!used.has(j)&&x.toLowerCase().includes(k));if(i!==-1){m[f]=i;used.add(i);break}}
+  return m}
+function shortName(n){const p=n.trim().split(/\s+/).filter(Boolean);return p.length<2?(p[0]||""):p[0]+" "+p[p.length-1][0].toUpperCase()+"."}
+function toRecipes(rows){const [h,...d]=rows,m=mapCols(h);const g=(r,f)=>m[f]!==undefined?(r[m[f]]||"").trim():"";
+  return d.map((r,i)=>({id:i,approved:m.approved===undefined||/^(yes|y|true|approved|x)$/i.test(g(r,"approved")),
+    name:g(r,"name"),author:shortName(g(r,"author")),origin:g(r,"origin"),story:g(r,"story"),ingredients:g(r,"ingredients"),directions:g(r,"directions")}))
+    .filter(r=>r.approved&&r.name).reverse()}
+const splitIng=t=>{let l=t.split(/\r?\n|;/).map(s=>s.replace(/^[-*•\s]+/,"").trim()).filter(Boolean);
+  if(l.length===1&&l[0].includes(","))l=l[0].split(",").map(s=>s.trim()).filter(Boolean);return l};
+const splitSteps=t=>{let l=t.split(/\r?\n/).map(s=>s.replace(/^\s*(step\s*)?\d+[.):]\s*/i,"").trim()).filter(Boolean);
+  if(l.length===1)l=l[0].split(/(?<=[.!?])\s+/).filter(Boolean);return l};
+
+/* ---------- saved recipes (this browser only) ---------- */
+const getSaved=()=>{try{return JSON.parse(localStorage.getItem("g2g-saved"))||[]}catch(e){return[]}};
+const putSaved=a=>{try{localStorage.setItem("g2g-saved",JSON.stringify(a))}catch(e){}};
+
+/* ---------- views ---------- */
+function card(r){const a=el("a","card");a.href="#/recipe/"+r.id;a.appendChild(el("div","tag",r.origin?"From "+r.origin:"Family recipe"));
+  const b=el("div","b");b.appendChild(el("h2","",r.name));if(r.author)b.appendChild(el("p","by","by "+r.author));
+  if(r.story)b.appendChild(el("p","snip",r.story));a.appendChild(b);return a}
+function empty(title,msg,withAdd){const s=el("div","state");s.appendChild(el("h2","",title));s.appendChild(el("p","",msg));
+  if(withAdd&&FORM_URL.startsWith("http")){const a=el("a","btn","Add your recipe");a.href=FORM_URL;a.target="_blank";a.rel="noopener";s.appendChild(a)}return s}
+function grid(list){const g=el("div","grid");list.forEach(r=>g.appendChild(card(r)));return g}
+
+function home(v,savedOnly){
+  const wrap=el("div","wrap");
+  if(savedOnly){wrap.appendChild(el("h1","","Saved recipes")).style.paddingTop="1.5rem"}
+  else{const hero=el("section","hero"),w=el("div","wrap");w.appendChild(el("h1","","Garden 2 Gourmet"));
+    w.appendChild(el("p","","Recipes from our 8th graders and their families, from the garden to the kitchen."));
+    const s=el("input","search");s.type="search";s.id="q";s.placeholder="Search recipes, ingredients, or places";s.setAttribute("aria-label","Search recipes");
+    w.appendChild(s);hero.appendChild(w);v.appendChild(hero);s.addEventListener("input",draw)}
+  const count=el("p","count");count.setAttribute("aria-live","polite");const out=el("div");wrap.append(count,out);v.appendChild(wrap);
+  function draw(){out.replaceChildren();
+    if(status==="loading"){count.textContent="Loading recipes...";return}
+    if(status==="error"){count.textContent="";out.appendChild(empty("Recipes could not load","Check your connection and refresh the page."));return}
+    const q=($("q")?$("q").value:"").toLowerCase().trim(),sv=getSaved();
+    const list=recipes.filter(r=>(!savedOnly||sv.includes(r.id))&&(!q||[r.name,r.author,r.ingredients,r.origin].join(" ").toLowerCase().includes(q)));
+    count.textContent=list.length+(list.length===1?" recipe":" recipes");
+    if(list.length)out.appendChild(grid(list));
+    else if(savedOnly)out.appendChild(empty("No saved recipes yet","Open a recipe and choose Save recipe to keep it here."));
+    else if(!recipes.length)out.appendChild(empty("No recipes yet","Be the first to add one.",true));
+    else out.appendChild(empty("No matches","Try a different search."))}
+  draw();document.title=savedOnly?"Saved recipes | Garden 2 Gourmet":"Garden 2 Gourmet"}
+
+function detail(v,id){
+  const wrap=el("div","wrap page");v.appendChild(wrap);
+  const back=el("a","back","Back to all recipes");back.href="#/";wrap.appendChild(back);
+  if(status==="loading"){wrap.appendChild(empty("Loading recipe...",""));return}
+  const r=recipes.find(x=>x.id===id);
+  if(!r){wrap.appendChild(empty("That recipe isn’t here","The link may be old or the recipe may have been removed."));return}
+  document.title=r.name+" | Garden 2 Gourmet";
+  wrap.appendChild(el("h1","",r.name));
+  const meta=[r.author&&"by "+r.author,r.origin&&"from "+r.origin].filter(Boolean).join(", ");
+  if(meta)wrap.appendChild(el("p","by",meta));
+  if(r.story)wrap.appendChild(el("p","story",r.story));
+  const acts=el("div","acts"),save=el("button","btn alt"),share=el("button","btn alt","Share"),msg=el("span","msg");msg.setAttribute("aria-live","polite");
+  const label=()=>{save.textContent=getSaved().includes(r.id)?"Saved. Remove":"Save recipe"};label();
+  save.onclick=()=>{let s=getSaved();s=s.includes(r.id)?s.filter(x=>x!==r.id):[...s,r.id];putSaved(s);label()};
+  share.onclick=async()=>{try{if(navigator.share){await navigator.share({title:r.name,url:location.href})}else{await navigator.clipboard.writeText(location.href);msg.textContent="Link copied"}}catch(e){}};
+  acts.append(save,share,msg);wrap.appendChild(acts);
+  const cols=el("div","cols"),ip=el("section","panel"),sp=el("section","panel");
+  ip.appendChild(el("h2","","Ingredients"));const ul=el("ul","ing");
+  splitIng(r.ingredients).forEach(t=>{const li=el("li"),lb=el("label"),cb=el("input");cb.type="checkbox";lb.append(cb,el("span","",t));li.appendChild(lb);ul.appendChild(li)});
+  ip.appendChild(ul);
+  sp.appendChild(el("h2","","Steps"));const ol=el("ol","steps");
+  splitSteps(r.directions).forEach(t=>ol.appendChild(el("li","",t)));sp.appendChild(ol);
+  cols.append(ip,sp);wrap.appendChild(cols);
+  const others=recipes.filter(x=>x.id!==r.id).slice(0,3);
+  if(others.length){const m=el("section","more");m.appendChild(el("h2","","More recipes"));m.appendChild(grid(others));wrap.appendChild(m)}}
+
+function about(v){
+  const w=el("div","wrap page about");w.appendChild(el("h1","","About Garden 2 Gourmet"));
+  w.appendChild(el("p","","This is our class cookbook. Every recipe comes from a student’s home or family, and many are inspired by what we grow in our garden."));
+  w.appendChild(el("h2","","How to add your recipe")).style.margin="1.5rem 0 .5rem";
+  const ol=el("ol");["Choose Add your recipe at the top of the page.","Fill out the form with your recipe, its steps, and why it’s special to you.","It shows up here automatically."].forEach(t=>ol.appendChild(el("li","",t)));
+  w.appendChild(ol);w.appendChild(el("p","","Questions? Ask your teacher."));v.appendChild(w);document.title="About | Garden 2 Gourmet"}
+
+/* ---------- routing ---------- */
+function route(){const h=location.hash||"#/",v=$("view");v.replaceChildren();window.scrollTo(0,0);
+  document.querySelectorAll("a.nl").forEach(a=>a.setAttribute("aria-current",a.getAttribute("href")===h?"page":"false"));
+  if(h.startsWith("#/recipe/"))detail(v,parseInt(h.slice(9),10));
+  else if(h==="#/about")about(v);
+  else home(v,h==="#/saved")}
+window.addEventListener("hashchange",route);
+
+const fetchRecipes=async()=>{const u=SHEET_CSV_URL+(SHEET_CSV_URL.includes("?")?"&":"?")+"t="+Date.now();
+  const res=await fetch(u,{cache:"no-store"});if(!res.ok)throw 0;return toRecipes(parseCSV(await res.text()))};
+
+/* check for new recipes every minute while the page is open */
+async function refresh(){
+  if(document.hidden)return;
+  try{const next=await fetchRecipes();
+    if(JSON.stringify(next)===JSON.stringify(recipes))return;
+    recipes=next;const h=location.hash||"#/";
+    if(h==="#/"||h==="#/saved"){const q=$("q"),val=q?q.value:"",focus=q&&document.activeElement===q;
+      route();const nq=$("q");if(nq){nq.value=val;nq.dispatchEvent(new Event("input"));if(focus)nq.focus()}}
+  }catch(e){}}
+
+async function load(){
+  if(!SHEET_CSV_URL.startsWith("http")){status="ready";return route()}
+  route();
+  try{recipes=await fetchRecipes();status="ready"}catch(e){status="error"}
+  route();setInterval(refresh,60000)}
+load();
+</script>
+</body>
+</html>
